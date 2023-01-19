@@ -1,0 +1,30 @@
+# Error: The deploy step encountered an error: The process '/usr/bin/git' failed with exit code 128
+# 发布时, 出现以上错误可能是权限问题, 可参考 https://blog.csdn.net/weixin_42282187/article/details/124766382
+
+name: 打包并发布到 gp-pages
+on:
+  #监听push操作
+  push:
+    branches:
+      - master # 这里只配置了main分支，所以只有推送main分支才会触发以下任务
+jobs:
+  # 任务ID
+  build-deploy:
+    # 运行环境
+    runs-on: ubuntu-latest
+    # 步骤
+    steps:
+      # 官方action，将代码拉取到虚拟机
+      - name: 拉取代码  ️ 
+        uses: actions/checkout@v3
+
+      - name: 安装依赖并打包   # 安装依赖、打包，如果提前已打包好无需这一步
+        run: |
+          npm install
+          npm run build
+
+      - name: 发布 gp-pages   # 部署
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages # 部署后提交到那个分支
+          folder: dist # 这里填打包好的目录名称
