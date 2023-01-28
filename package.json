@@ -21,6 +21,7 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "cz-customizable": "6.3.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3"
   },
@@ -37,6 +38,14 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {}
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "cz-config.js"
+    }
   },
   "browserslist": [
     "> 1%",
